@@ -1,0 +1,24 @@
+it:
+  actions:
+    actions: "Azioni"
+    assign_customer_machine: "Assegna macchina"
+    add: "Aggiungi"
+    aggregate: "Aggrega"
+    back: "Indietro"
+    brand_new: "Nuova"
+    cancel: "Annulla"
+    check_files_completed: "Controllo dei files completato"
+    close: "Chiudi"
+    delete: "Elimina"
+    download: "Scarica"
+    edit: "Modifica"
+    list: "Elenco"
+    new: "Crea"
+    save: "Salva"
+    send: "Invia"
+    sign_out: "Esci"
+    sync: "Sincronizza"
+    sort: "Ordina"
+    upload: "Carica"
+    send_to_switch: Invia a hotfolder
+    send_all_to_switch: Invia tutti a hotfolder

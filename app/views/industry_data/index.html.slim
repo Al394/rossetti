@@ -1,0 +1,12 @@
+h1.pb-2.mt-4.mb-2.border-bottom
+  .float-left
+    = t('obj.list', obj: IndustryDatum.model_name.human(count: 0).downcase)
+
+  .float-right
+    - if IndustryDatum.unsent.size > 0
+      =< link_to [:sent_all, :industry_data], class: :'btn btn-sm btn-warning', data: { spinner: true }
+        = fa_icon('paper-plane')
+        =< "Rinvia tutti"
+  .clearfix
+
+== render partial: 'list', locals: { collection: @industry_data }

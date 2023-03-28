@@ -1,0 +1,85 @@
+it:
+  activerecord:
+    attributes:
+      changelog:
+        description: Descrizione
+        tag: Tag
+        version: Versione
+      customer_machine:
+        name: Nome
+        kind: Tipologia
+        colors_kind: Tipologia colore
+        path: Percorso
+        ip_address: Indirizzo IP
+        serial_number: Serial number
+        username: Username
+        psw: Password
+        api_key: Chiave API
+        hotfolder_path: Percorso Hotfolder
+        speed: Fogli B/V minuto
+        default_machine: Macchine di default
+        is_mounted: Connessa
+      customization:
+        parameter: Parametro
+        value: Valore
+        um: Unità misura
+        notes: Note
+      industry_datum:
+        customer_machine: Macchina utilizzata
+        duration: Tempo di utilizzo
+        ends_at: Fine
+        extra_data: Dati aggiuntivi
+        file_name: Nome file
+        ink: Consumi inchiostro (ml)
+        material: Materiale
+        print_time: Tempo di stampa
+        quantity: Quantità
+        start_at: "Inizio"
+        status: Stato
+        sent_to_gest: Inviato a gestionale
+      log:
+        action: "Azione"
+        description: "Descrizione"
+        created_at: "Data"
+      notification:
+        created_at: Data creazione
+        kind: Tipologia
+        read: Letta
+      role:
+        code: "Codice"
+        name: "Nome"
+        value: "Valore"
+      user:
+        current_password: "Password corrente"
+        current_sign_in_at: "Accesso attuale"
+        email: "Email"
+        first_name: "Nome"
+        last_name: "Cognome"
+        last_sign_in_at: "Ultimo accesso"
+        password: "Password"
+        password_confirmation: "Conferma password"
+        remember_me: "Ricordami"
+        sign_in_count: "Accessi"
+
+    models:
+      customer_machine:
+        one: Macchina cliente
+        other: Macchine cliente
+      customization:
+        one: Configurazione
+        other: Configurazioni
+      log:
+        one: "Log"
+        other: "Logs"
+      industry_datum:
+        one: "Dato macchina"
+        other: "Dati macchine"
+      notification:
+        one: Notifica
+        other: Notifiche
+      role:
+        one: "Ruolo"
+        other: "Ruoli"
+      user:
+        one: "Utente"
+        other: "Utenti"

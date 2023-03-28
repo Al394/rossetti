@@ -1,0 +1,9 @@
+development:
+  :concurrency: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  :pidfile: tmp/pids/sidekiq.pid
+  :queues:
+    - nuova_algis
+production:
+  :concurrency: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  :queues:
+    - nuova_algis

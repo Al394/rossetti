@@ -1,0 +1,40 @@
+.table-responsive
+
+  table#industry_data.table.table-bordered.table-sm.table-hover.table-striped
+
+    - if params[:controller] == 'industry_data'
+      thead
+        tr
+          td.colspan
+            .float-left == render partial: 'table_page_entries', locals: { collection: collection }
+
+    thead
+      tr
+        - if params[:controller] == 'industry_data'
+          th = t('strings.Actions')
+        th = IndustryDatum.human_attribute_name(:file_name)
+        th = IndustryDatum.human_attribute_name(:customer_machine)
+        th = IndustryDatum.human_attribute_name(:quantity)
+        th = IndustryDatum.human_attribute_name(:material)
+        th = IndustryDatum.human_attribute_name(:ink)
+        th = IndustryDatum.human_attribute_name(:extra_data)
+        th = IndustryDatum.human_attribute_name(:status)
+        th = IndustryDatum.human_attribute_name(:start_at)
+        th = IndustryDatum.human_attribute_name(:ends_at)
+        th = IndustryDatum.human_attribute_name(:duration)
+        th = IndustryDatum.human_attribute_name(:sent_to_gest)
+
+    - if params[:controller] == 'industry_data'
+      tfoot
+        tr
+          td.colspan
+            .float-left = will_paginate collection
+            .float-right == render 'table_entries'
+
+    tbody
+      - if params[:controller] == 'industry_data'
+        == render partial: "industry_data/filters"
+      - if collection.length > 0
+        == render collection
+      - else
+        tr: td.colspan.info = t('obj.empty_list', obj: IndustryDatum.model_name.human(count: 0).downcase)

@@ -1,0 +1,41 @@
+{
+  "production": [
+    {
+      "id": 1,
+      "email": "admin@soltechservice.it",
+      "first_name": "Admin",
+      "last_name": "Soltech Service",
+      "password": "S0lt3ch!",
+      "role_id": 1
+    },
+
+    {
+      "id": 2,
+      "email": "admin@nuovaalgis.it",
+      "first_name": "Admin",
+      "last_name": "Nuova Algis",
+      "password": "Nuovaalgis",
+      "role_id": 2
+    }
+  ],
+
+  "development": [
+    {
+      "id": 1,
+      "email": "admin@soltechservice.it",
+      "first_name": "Admin",
+      "last_name": "Soltech Service",
+      "password": "123456",
+      "role_id": 1
+    },
+
+    {
+      "id": 2,
+      "email": "admin@nuovaalgis.it",
+      "first_name": "Admin",
+      "last_name": "Nuova Algis",
+      "password": "123456",
+      "role_id": 2
+    }
+  ]
+}

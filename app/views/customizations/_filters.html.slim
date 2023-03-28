@@ -1,0 +1,18 @@
+form
+  - if params[:per_page].present?
+    = hidden_field_tag :per_page, params[:per_page]
+  td
+    = button_tag t('strings.Search'), class: :'btn btn-sm btn-success', data: { disable: true }, type: :submit
+      = fa_icon 'search-plus'
+
+    =< link_to [:customizations, tag: params[:tag]], class: :'btn btn-sm btn-secondary'
+      = fa_icon 'undo'
+
+  td = text_field_tag :parameter, params[:parameter], class: :'form-control'
+
+  td = text_field_tag :value, params[:value], class: :'form-control'
+
+  td = text_field_tag :um, params[:um], class: :'form-control'
+
+  td
+  = hidden_field_tag 'tag', params[:tag]

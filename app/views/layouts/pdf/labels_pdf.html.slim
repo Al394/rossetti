@@ -1,0 +1,63 @@
+doctype html
+
+html
+  head
+    meta charset="utf-8"
+    / = pdf_stylesheet_pack_tag "application"
+    = wicked_pdf_stylesheet_link_tag "application"
+    = wicked_pdf_stylesheet_link_tag "bootstrap"
+
+    scss:
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .clearfix {
+        &:before,
+        &:after {
+          content: " ";
+          display: table;
+        }
+        &:after {
+          clear: both;
+        }
+      }
+
+      .row {
+        page-break-inside:avoid; page-break-after:auto
+      }
+
+      .page-break {
+        display: block;
+        clear: both;
+        page-break-after: always;
+      }
+
+      .label_box {
+        float: left;
+        width: 240px;
+        height: 135px;
+        margin-left: 11px;
+        margin-right: 11px;
+        padding-left: 22px;
+        padding-top: 25px;
+        font-size: 12px;
+        line-height: 1;
+        text-align: left;
+        p {
+          margin: 0;
+        }
+        p.medium {
+          font-size: 15px;
+        }
+      }
+
+      .bold {
+        font-weight: bold;
+      }
+      .medium {
+        font-size: 20px;
+      }
+
+  body == yield

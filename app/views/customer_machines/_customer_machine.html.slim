@@ -1,0 +1,15 @@
+tr
+  td
+    =< link_to [:edit, customer_machine], class: :'btn btn-sm btn-primary', remote: true
+      = fa_icon('edit')
+
+  td = customer_machine.name
+  td = customer_machine.path
+  td = customer_machine.ip_address
+  td = customer_machine.serial_number
+  td = customer_machine.username
+  td = customer_machine.psw
+  td = customer_machine.api_key
+  td = customer_machine.hotfolder_path
+  td = customer_machine.status
+  td = boolean customer_machine.is_mounted

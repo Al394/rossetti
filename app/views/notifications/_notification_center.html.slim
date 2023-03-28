@@ -1,0 +1,18 @@
+- notifications = current_user.notifications.unread
+li#notificationLi.nav-item class="#{'active' if notifications.size > 0 }"
+  .dropdown.show
+    = link_to '#', class: 'nav-link dropdown', data: {toggle: "dropdown"}
+      = render 'notifications/counter', counter: notifications.count
+    #notification.dropdown-menu.dropdown-menu-right
+      h5.card-header.bg-light
+        .float-left
+          = Notification.model_name.human(count: 0)
+        .float-right
+          = link_to [:set_all_read, :notifications], class: :'btn btn-sm', data: { confirm: t('confirm.set_read'), method: :patch, remote: true}, title: t('actions.set_read')
+            =< fa_icon('bell-slash')
+        .clearfix
+      #notificationList
+        - if notifications.size > 0
+          == render notifications
+        - else
+          #noNotification.alert.alert-warning style="margin-bottom: 0" = "#{I18n::t('strings.no_notifications')}"

@@ -1,0 +1,38 @@
+.table-responsive
+
+  table#notifications.table.table-bordered.table-sm.table-hover.table-striped
+
+    thead
+      tr
+        td.colspan
+          .float-left == render partial: 'table_page_entries', locals: { collection: collection }
+          .float-right == render 'table_search'
+
+    thead
+      tr
+        th = t('strings.Actions')
+        th = Notification.model_name.human
+        th = Notification.human_attribute_name(:kind)
+        th = Notification.human_attribute_name(:read)
+        th = Notification.human_attribute_name(:created_at)
+
+    tfoot
+      tr
+        td.colspan
+          .float-left = will_paginate collection
+          .float-right == render 'table_entries'
+
+    tbody
+      - if collection.length > 0
+        - collection.each do |notification|
+          tr
+            td
+              = link_to [:set_read, notification], class: :'btn btn-sm btn-info', method: :patch
+                = fa_icon 'search-plus'
+            td = notification
+            td = notification.resource.model_name.human
+            td = boolean notification.read
+            td = l notification.created_at, format: :short
+
+      - else
+        tr: td.colspan.info = t('obj.empty_list', obj: Notification.model_name.human(count: 0).downcase)

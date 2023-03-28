@@ -1,0 +1,18 @@
+p = "#{@resource.model_name.human}: #{@resource.to_s} è stato cancellato."
+
+br
+
+- if ['Order', 'Offer', 'User', 'Customer'].include?(@resource.class.to_s)
+  = link_to "Clicca qui per maggiori dettagli", [@resource]
+- elsif ['Finishing', 'HardMaterial', 'FlexibleMaterial', 'StructureMaterial'].include?(@resource.class.to_s)
+  = link_to "Clicca qui per maggiori dettagli", [@resource.class.to_s.tableize.to_sym]
+- elsif ['Product'].include?(@resource.class.to_s)
+  = link_to "Clicca qui per maggiori dettagli", [:categories]
+- elsif ['FinalProduct'].include?(@resource.class.to_s)
+  = link_to "Clicca qui per maggiori dettagli", [:final_categories]
+- elsif ['LineItem'].include?(@resource.class.to_s)
+  = link_to "Clicca qui per maggiori dettagli", [@resource.order]
+- elsif ['OfferLineItem'].include?(@resource.class.to_s)
+  = link_to "Clicca qui per maggiori dettagli", [@resource.offer]
+- elsif ['JobOperation'].include?(@resource.class.to_s)
+  = link_to "Clicca qui per maggiori dettagli", [@resource.resource.line_item.order, @resource.resource.line_item, @resource.resource]

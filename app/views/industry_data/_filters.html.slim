@@ -1,0 +1,35 @@
+form
+  - if params[:per_page].present?
+    = hidden_field_tag :per_page, params[:per_page]
+  td.action-btns
+    = button_tag t('strings.Search'), class: :'btn btn-sm btn-success', data: { disable: true }, type: :submit
+      = fa_icon('search')
+
+    =< link_to [:industry_data], class: :'btn btn-sm btn-secondary'
+      = fa_icon('undo')
+
+  td = text_field_tag :file_name, params[:file_name], class: :'form-control'
+
+  td = select_tag :customer_machine_id, options_for_select(CustomerMachine.joins(:industry_data).uniq.collect { |cm| [cm.to_s, cm.id]}, params[:customer_machine_id]), class: :'form-control', prompt: t('strings.Select_one'), onchange: "this.form.submit();"
+  td = text_field_tag :quantity, params[:quantity], class: :'form-control'
+  td = text_field_tag :material, params[:material], class: :'form-control'
+  td = text_field_tag :ink, params[:ink], class: :'form-control'
+  td = text_field_tag :extra_data, params[:extra_data], class: :'form-control'
+  td = select_tag :status, options_for_select(IndustryDatum.all.pluck(:status).uniq, params[:status]), class: :'form-control', prompt: t('strings.Select_one'), onchange: "this.form.submit();"
+  td
+    .row
+      .col-sm-6
+        = text_field_tag :from_create, params[:from_create], class: :'form-control fake_date_field', placeholder: "Da: gg/mm/aaaa"
+      .col-sm-6
+        = text_field_tag :to_create, params[:to_create], class: :'form-control fake_date_field', placeholder: "A: gg/mm/aaaa"
+  td
+    .row
+      .col-sm-6
+        = text_field_tag :from_end, params[:from_end], class: :'form-control fake_date_field', placeholder: "Da: gg/mm/aaaa"
+      .col-sm-6
+        = text_field_tag :to_end, params[:to_end], class: :'form-control fake_date_field', placeholder: "A: gg/mm/aaaa"
+
+  td
+  td = select_tag :sent_to_gest, options_for_select([false, true].collect { |bool| [I18n::t("enumerators.common.boolean.#{bool}"), bool] }, params[:sent_to_gest]), class: :'form-control', prompt: t('strings.Select_one'), onchange: "this.form.submit();"
+
+  = hidden_field_tag 'tag', params[:tag]

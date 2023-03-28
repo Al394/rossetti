@@ -1,0 +1,9 @@
+tr
+  td
+    - if current_user.has_role?('super_admin') || current_user.role.value < user.role.value || current_user.id == user.id
+      =< link_to [:edit, user], class: :'btn btn-info btn-sm', data: {remote: true}
+        = fa_icon 'edit'
+  td = user.first_name
+  td = user.last_name
+  td = user.email
+  td = user.role.to_s

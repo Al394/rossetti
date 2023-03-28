@@ -1,0 +1,20 @@
+tr
+  td
+  td = industry_datum.file_name
+  td = industry_datum&.customer_machine
+  td = industry_datum.quantity
+  td = industry_datum.material
+  td = industry_datum.ink.split(';').join(", ") if industry_datum.ink.present?
+  td = industry_datum.extra_data
+  td = industry_datum.status
+  td = l industry_datum.start_at, format: :short if industry_datum.start_at.present?
+  td = l industry_datum.ends_at, format: :short if industry_datum.ends_at.present?
+  td = number_to_hour_minutes industry_datum.duration.to_i if industry_datum.duration.present?
+  td
+    - if industry_datum.sent_to_gest.present?
+      = l(industry_datum.sent_to_gest, format: :short)
+    - else
+      .text-center
+        =< link_to [:sent_all, :industry_data, industry_datum_id: industry_datum.id], class: :'btn btn-sm btn-warning', data: { spinner: true }
+          = fa_icon('paper-plane')
+          =< "Rinvia"

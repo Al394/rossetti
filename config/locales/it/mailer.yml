@@ -1,0 +1,29 @@
+it:
+  mailer:
+    common:
+      signature: |
+
+        Saluti.
+
+        --
+        Questo è un messaggio automatico. Si prega di non rispondere a questo indirizzo.
+    notification:
+      created:
+        subject: "%{obj} %{text} creato"
+      updated:
+        subject: "%{obj} %{text} aggiornato"
+      deleted:
+        subject: "%{obj} %{text} eliminato"
+      concluded:
+        subject: "%{obj} %{text} concluso"
+      understock:
+        subject: "%{obj} %{text} sottoscorta"
+      missing_data:
+        subject: "Dati 4.0 mancanti"
+    order:
+      finished:
+        subject: "Ordine %{code} completato"
+      export_error:
+        subject: "Errore esportazione ordini verso gestionale"
+      import_error:
+        subject: "Errore importazione ordine %{code}"

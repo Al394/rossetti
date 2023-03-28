@@ -1,0 +1,5 @@
+p = "#{@resource.model_name.human} #{@resource.to_s} è andato sottoscorta."
+
+br
+
+= link_to "Clicca qui per maggiori dettagli", [:stocks, resource_type: @resource.class.to_s, resource_id: @resource.id]

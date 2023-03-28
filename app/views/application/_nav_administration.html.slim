@@ -1,0 +1,21 @@
+- if can? :read, Role
+  = link_to [:roles], class: "#{params[:controller] == 'roles' ? 'dropdown-item active' : 'dropdown-item'}", data: {spinner: true}
+    = fa_icon 'balance-scale-right'
+    span =< Role.model_name.human(count: 0)
+- if can? :read, User
+  = link_to [:users], class: "#{params[:controller] == 'users' ? 'dropdown-item active' : 'dropdown-item'}", data: {spinner: true}
+    = fa_icon 'users'
+    span =< User.model_name.human(count: 0)
+- if Customization.all.size > 0
+  - if can? :read, Customization
+    = link_to [:customizations], class: "#{params[:controller] == 'customizations' ? 'dropdown-item active' : 'dropdown-item'}", data: {spinner: true}
+      = fa_icon 'wrench'
+      span =< Customization.model_name.human(count: 0)
+- if can? :read, Log
+  = link_to [:logs], class: "#{params[:controller] == 'logs' ? 'dropdown-item active' : 'dropdown-item'}", data: {spinner: true}
+    = fa_icon 'eye'
+    span =< Log.model_name.human(count: 0)
+- if can? :see_sidekiq, current_user
+  = link_to [:sidekiq_web], target: :_blank, class: 'dropdown-item', data: { spinner: false }
+    = fa_icon 'history'
+    span =< t('strings.Sidekiq')

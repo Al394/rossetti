@@ -1,0 +1,35 @@
+= form_for [@user], html: { autocomplete: :off }, data: { method: :patch, remote: true } do |f|
+
+  - if params[:action] == 'edit'
+    = hidden_field_tag :old_value, @user.role.id
+
+  - if @error
+    p.alert.alert-danger = @error
+
+  .form-group
+    = f.label :first_name
+    = f.text_field :first_name, class: :'form-control'
+
+  .form-group
+    = f.label :last_name
+    = f.text_field :last_name, class: :'form-control'
+
+  .form-group
+    = f.label :email
+    = f.text_field :email, class: :'form-control'
+
+  - if params[:action] != 'edit'
+    .form-group
+      = f.label :password
+      .small.alert.alert-primary = "Deve contenere almeno 6 caratteri."
+      = f.text_field :password, class: :'form-control'
+
+  - if current_user.has_role?('super_admin') || current_user.has_role?('admin')
+    .form-group
+      = f.label Role.model_name.human
+      - if @user.persisted? && @user.has_role?('agent')
+        .alert.alert-warning = t('flash.change_user_role')
+      = f.select :role_id, Role.classical.order(:value).collect { |role| [role.to_s, role.id] }, { }, { class: :'form-control' }
+
+  .form-group
+    = button_tag t('actions.save'), class: :'btn btn-sm btn-success btn-block', data: { disable: true }, type: :submit

@@ -1,0 +1,17 @@
+it:
+  enumerators:
+    common:
+      boolean:
+        "false": "No"
+        "true": "Si"
+    status:
+      new: "Nuovo"
+      completed: "Terminato"
+    customer_machine:
+      colors_kinds:
+        CMYK: CMYK
+        BN: Bianco nero
+      kinds:
+        printer: Stampante
+        cutter: Taglierina
+        generic: Generica

@@ -1,0 +1,36 @@
+doctype html
+
+html lang="#{I18n::locale}"
+
+  head == render 'head'
+
+  body class="#{user_signed_in? ? '' : 'devise_bg'}"
+
+    #modal.modal.fade data-backdrop="static" data-keyboard="false"
+
+    #spinner.modal
+
+    - if user_signed_in?
+      #header.header
+        == render 'header'
+
+    #main.main
+
+      .container-fluid
+        #check_files_success.alert.alert-success.d-none
+        #check_files_error.alert.alert-danger.d-none
+
+        #read_xls_file_checking.alert.alert-warning.d-none
+        #read_xls_file_success.alert.alert-success.d-none
+        #read_xls_file_error.alert.alert-danger.d-none
+
+        #send_program_success.alert.alert-success.d-none
+        #send_program_error.alert.alert-danger.d-none
+        
+        - if flash.keys.length > 0
+          == render 'flash'
+
+        == yield
+
+    #footer
+      nav.navbar.fixed-bottom.navbar-dark == render 'footer'

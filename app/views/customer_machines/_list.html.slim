@@ -1,0 +1,36 @@
+.table-responsive
+
+  table#logs.table.table-bordered.table-sm.table-hover.table-striped
+
+    thead
+      tr
+        td.colspan
+          .float-left == render partial: 'table_page_entries', locals: { collection: collection }
+          .float-right == render 'table_search'
+
+    thead
+      tr
+        == content_for :extra_thead
+        th = t('strings.Actions')
+        th = CustomerMachine.human_attribute_name(:name)
+        th = CustomerMachine.human_attribute_name(:path)
+        th = CustomerMachine.human_attribute_name(:ip_address)
+        th = CustomerMachine.human_attribute_name(:serial_number)
+        th = CustomerMachine.human_attribute_name(:username)
+        th = CustomerMachine.human_attribute_name(:psw)
+        th = CustomerMachine.human_attribute_name(:api_key)
+        th = CustomerMachine.human_attribute_name(:hotfolder_path)
+        th = CustomerMachine.human_attribute_name(:status)
+        th = CustomerMachine.human_attribute_name(:is_mounted)
+
+    tfoot
+      tr
+        td.colspan
+          .float-left = will_paginate collection
+          .float-right == render 'table_entries'
+
+    tbody
+      - if collection.length > 0
+        == render collection
+      - else
+        tr: td.colspan.alert-warning = t('obj.empty_list', obj: Log.model_name.human(count: 0).downcase)

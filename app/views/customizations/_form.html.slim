@@ -1,0 +1,39 @@
+= form_for [@customization], html: { autocomplete: :off }, data: { method: :patch, remote: true } do |f|
+
+  - if can? :create, Customization
+    .form-group
+      = f.label :parameter
+      = f.text_field :parameter, class: :'form-control'
+
+    .form-group
+      = f.label :um
+      = f.text_field :um, class: :'form-control'
+
+    .form-group
+      = f.label :notes
+      = f.text_area :notes, class: :'form-control'
+
+  - elsif !@customization.is_logo_related?
+    p = @customization.parameter
+
+  - if @customization.persisted? && @customization.is_logo_related?
+    p.alert.alert-info = "Il file deve essere un .png e deve avere una altezza minima di 50px."
+    .form-group
+      = f.label :customer_logo
+      = f.file_field :customer_logo, class: :'form-control', accept: 'image/png'
+      / serve perché per qualche motivo sconosciuto non arrivano i create/update_params senza un hidden
+      = f.hidden_field :value
+
+  - else
+    .form-group
+      - if ['true', 'false'].include?(@customization.value)
+        = f.label "#{Customization.human_attribute_name(:value)} #{@customization.um}"
+        = f.select :value,  [true, false].collect { |bool| [I18n::t("enumerators.common.boolean.#{bool}"), bool ] }, { select: true }, { class: :'form-control' }
+        .small.help-block = simple_format @customization.notes
+      - else
+        = f.label "#{Customization.human_attribute_name(:value)} #{@customization.um}"
+        = f.text_field :value, class: :'form-control'
+        .small.help-block = simple_format @customization.notes
+
+  .form-group
+    = button_tag t('strings.Save'), class: :'btn btn-sm btn-success btn-block', data: { disable: true }, type: :submit
