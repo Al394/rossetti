@@ -63,5 +63,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   # Whitelist one hostname
-  config.hosts << "nuova_algis-development.it"
+  config.hosts << "rossetti-development.it"
 end

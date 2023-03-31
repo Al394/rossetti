@@ -1,5 +1,5 @@
 class ActiveStorageCleanUp < ApplicationJob
-  queue_as :nuova_algis
+  queue_as :rossetti
   sidekiq_options retry: 1, backtrace: 10
 
   def perform

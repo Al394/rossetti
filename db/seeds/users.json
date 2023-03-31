@@ -11,9 +11,9 @@
 
     {
       "id": 2,
-      "email": "admin@nuovaalgis.it",
+      "email": "admin@rossetti.it",
       "first_name": "Admin",
-      "last_name": "Nuova Algis",
+      "last_name": "Rossetti",
       "password": "Nuovaalgis",
       "role_id": 2
     }
@@ -31,9 +31,9 @@
 
     {
       "id": 2,
-      "email": "admin@nuovaalgis.it",
+      "email": "admin@rossetti.it",
       "first_name": "Admin",
-      "last_name": "Nuova Algis",
+      "last_name": "Rossetti",
       "password": "123456",
       "role_id": 2
     }

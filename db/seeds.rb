@@ -52,7 +52,7 @@ if Customization.where(parameter: 'soltech_ftp_port').size == 0
 end
 
 if Customization.where(parameter: 'license_backup_folder').size == 0
-  Customization.create!(parameter: 'license_backup_folder', value: 'nuova_algis', notes: 'Cartella backup su ftp')
+  Customization.create!(parameter: 'license_backup_folder', value: 'rossetti', notes: 'Cartella backup su ftp')
 end
 
 if Customization.where(parameter: 'smtp_address').size == 0

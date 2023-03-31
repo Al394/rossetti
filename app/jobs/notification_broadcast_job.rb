@@ -1,5 +1,5 @@
 class NotificationBroadcastJob < ApplicationJob
-  queue_as :"nuova_algis"
+  queue_as :"rossetti"
 
   def perform(notification_id, counter)
     if notification_id.present?

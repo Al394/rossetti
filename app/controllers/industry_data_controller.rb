@@ -1,6 +1,8 @@
 class IndustryDataController < ApplicationController
   load_and_authorize_resource
 
+  before_action :fetch_industry_datum, only: [:resend]
+
   def index
     @industry_data = IndustryDatum.all.ordered
     @industry_data = @industry_data.where('file_name LIKE :file_name', file_name: "%#{params[:file_name]}%") if params[:file_name].present?
@@ -19,13 +21,25 @@ class IndustryDataController < ApplicationController
     @industry_data = @industry_data.paginate(page: params[:page], per_page: params[:per_page])
   end
 
+  def resend
+    begin
+      @industry_datum.customer_machine.update!(token: nil)
+      SendToFilemaker.perform_later(@industry_datum.id)
+      flash[:notice] = I18n::t('obj.updated', obj: IndustryDatum.model_name.human.downcase)
+    rescue Exception => e
+      flash[:danger] = I18n::t('obj.not_uploaded', obj: IndustryDatum.model_name.human.downcase, message: e.message)
+    ensure
+      redirect_to [:industry_data]
+    end
+  end
+
   def sent_all
     begin
       if params[:industry_datum_id].present?
-        SendToGest.perform_later(params[:industry_datum_id])
+        SendToFilemaker.perform_later(params[:industry_datum_id])
       else
         IndustryDatum.unsent.each do |industry_datum|
-          SendToGest.perform_later(industry_datum.id)
+          SendToFilemaker.perform_later(industry_datum.id)
         end
       end
       sleep(0.4)
@@ -37,5 +51,9 @@ class IndustryDataController < ApplicationController
       flash[:notice] = t('strings.not_sent_exception', obj: IndustryDatum.model_name.human(count: 0))
     end
   end
+  private
 
+  def fetch_industry_datum
+    @industry_datum = IndustryDatum.find(params[:id])
+  end
 end

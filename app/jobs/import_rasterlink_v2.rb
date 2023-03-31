@@ -1,8 +1,8 @@
 class ImportRasterlinkV2 < ApplicationJob
-  queue_as :nuova_algis
+  queue_as :rossetti
   sidekiq_options retry: 0, backtrace: 10
 
-  def perform(args)
+  def perform
     CustomerMachine.where(import_job: 'rasterlink_v2').each do |customer_machine|
       if customer_machine.present? && customer_machine.is_mounted?
         start = Time.now

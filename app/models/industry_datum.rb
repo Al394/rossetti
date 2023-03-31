@@ -42,6 +42,6 @@ class IndustryDatum < ApplicationRecord
   private
 
   def send_to_gest
-    SendToGest.perform_later(self.id)
+    SendToFilemaker.perform_later(self.id)
   end
 end

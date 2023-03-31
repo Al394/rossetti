@@ -10,7 +10,7 @@ require 'tiny_tds'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module NuovaAlgis
+module Rossetti
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
@@ -27,6 +27,6 @@ module NuovaAlgis
     config.i18n.fallbacks = true
 
     config.active_job.queue_adapter = :sidekiq
-    config.active_storage.queues = Hash.new(:nuova_algis)
+    config.active_storage.queues = Hash.new(:rossetti)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_17_113259) do
+ActiveRecord::Schema.define(version: 2023_03_03_085749) do
 
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2023_03_17_113259) do
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", default: "2023-03-16 16:35:36", null: false
+    t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -79,9 +79,9 @@ ActiveRecord::Schema.define(version: 2023_03_17_113259) do
     t.integer "quantity", default: 0
     t.datetime "start_at"
     t.datetime "ends_at"
+    t.datetime "sent_to_gest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.datetime "sent_to_gest"
     t.index ["customer_machine_id"], name: "index_industry_data_on_customer_machine_id"
   end
 
@@ -99,9 +99,9 @@ ActiveRecord::Schema.define(version: 2023_03_17_113259) do
     t.bigint "resource_id"
     t.boolean "read", default: false
     t.string "kind"
+    t.text "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "notes"
     t.index ["resource_type", "resource_id"], name: "index_notifications_on_resource"
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end

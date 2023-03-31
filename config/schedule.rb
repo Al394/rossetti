@@ -1,9 +1,6 @@
 every 5.minutes do
-  runner "ImportColorado.perform_later"
   runner "ImportRasterlinkV2.perform_later"
-  runner "ImportRasterlink.perform_later"
-  runner "ImportSwissQ.perform_later"
-  runner "ImportZund.perform_later"
+  runner "ImportVersaWorks.perform_later"
 end
 
 every 15.minutes do
