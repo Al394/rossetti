@@ -96,3 +96,11 @@ if Customization.where(parameter: 'smtp_password').size == 0
 else
   Customization.find_by(parameter: 'smtp_password').update!(value: "SS#947up!@@")
 end
+
+if Customization.where(parameter: 'soltech_gest_url').size == 0
+  Customization.create!(parameter: 'soltech_gest_url', value: 'http://gest.soltech.cloud/api/v1', notes: 'API')
+end
+
+if Customization.where(parameter: 'license_token').size == 0
+  Customization.create!(parameter: 'license_token', value: ENV['SS_GEST_TOKEN'], notes: 'Token licenza')
+end
