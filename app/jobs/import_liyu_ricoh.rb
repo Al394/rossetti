@@ -32,7 +32,7 @@ class ImportLiyuRicoh < ApplicationJob
                 customer_machine_id: customer_machine.id,
                 start_at: DateTime.parse(row.xpath("UIJob/dateTime").text.strip),
                 print_time: print_time.to_i,
-                ends_at: DateTime.parse(row.xpath("UIJob/dateTime").text.strip) + print_time.to_i,
+                ends_at: DateTime.parse(row.xpath("UIJob/dateTime").text.strip) + print_time&.to_i&.seconds,
                 copies: 1,
                 ink: inks
               }

@@ -29,12 +29,14 @@ class ImportRasterlinkV2 < ApplicationJob
                 end
               end
             end
+            print_time = convert_to_time(end_time.max) - convert_to_time(start_time.min)
             details = {
               file_name: job_name,
               customer_machine_id: customer_machine.id,
               copies: 1,
+              print_time: print_time,
               start_at: convert_to_time(start_time.min),
-              print_time: convert_to_time(end_time.max) - convert_to_time(start_time.min),
+              ends_at: convert_to_time(start_time.min) + print_time&.seconds,
               ink: inks.map {|k, v| "#{k}:#{v}"}.join(';')
             }
             printer = IndustryDatum.find_by(details)
