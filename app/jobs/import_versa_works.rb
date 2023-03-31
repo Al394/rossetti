@@ -3,7 +3,7 @@ class ImportVersaWorks < ApplicationJob
   sidekiq_options retry: 0, backtrace: 10
 
   def perform
-    CustomerMachine.where(import_job: 'import_versa_works').each do |customer_machine|
+    CustomerMachine.where(import_job: 'versa_works').each do |customer_machine|
       if customer_machine.present? && customer_machine.is_mounted?
         db = SQLite3::Database.open "#{customer_machine.path}/JobHistory.db"
         query = "SELECT ORP.Job_History_Key, JS.Job_Name, GROUP_CONCAT( SUBSTR(II.English,1,1) || ':' || IC.Consumption ,';') AS InkUse, ORP.Print_Start, ORP.Print_End, JS.Copies, CASE JH.Type WHEN '19' THEN 'Annullata' WHEN '25' THEN 'Completata' END Stato FROM operation_rip_print AS ORP INNER JOIN job_history AS JH ON ORP.Job_History_Key = JH.key INNER JOIN job_setting AS JS ON JH.job_setting_key = JS.key INNER JOIN ink_consumption AS IC ON JH.job_setting_key = IC.job_setting_key INNER JOIN ink_info AS II ON IC.ink_info_key = II.key WHERE ORP.Print_End IS NOT NULL AND ORP.Print_Start > date('now','-1 days') GROUP BY ORP.Job_History_Key ORDER BY ORP.Job_History_Key DESC; "
