@@ -1,6 +1,8 @@
 every 5.minutes do
   runner "ImportRasterlinkV2.perform_later"
   runner "ImportVersaWorks.perform_later"
+  runner "ImportLiyuRicoh.perform_later"
+  runner "ImportLiyuKonica.perform_later"
 end
 
 every 15.minutes do
