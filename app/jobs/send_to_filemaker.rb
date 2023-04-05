@@ -35,9 +35,14 @@ class SendToFilemaker < ApplicationJob
       if token.present?
         uri = URI("https://#{ENV['FILEMAKER_HOST']}/fmi/data/#{ENV['FILEMAKER_VERSION']}/databases/#{ENV['FILEMAKER_DB_NAME']}/layouts/#{ENV['FILEMAKER_FORMAT_NAME']}/records")
         request = Net::HTTP::Post.new(uri.path, {'Content-Type' => 'application/json', 'Authorization' => 'Bearer ' + token})
-        print_data = resource.as_json(:except => [:id, :updated_at, :created_at, :customer_machine_id, :sent_to_gest_date, :resource_type, :resource_id, :folder])
-        print_data['start_at'] = print_data['start_at'].to_datetime.strftime('%d-%m-%Y %H:%M')
-        data = { fieldData: print_data, "script":"aggiorna_dati_hp", "script.param":"#{resource.job_id}"}
+        print_data = Hash.new
+        str_arr = resource.as_json(:except => [:id, :updated_at, :created_at, :customer_machine_id, :sent_to_gest_date, :resource_type, :resource_id, :folder, :sent_to_gest]).map do |k, v|
+          [k, v].join(': ')
+        end
+        print_data['stringa'] = str_arr.join('; ')
+        # print_data['start_at'] = print_data['start_at'].to_datetime.strftime('%d-%m-%Y %H:%M')
+        print_data['macchina'] = resource.customer_machine.to_s
+        data = { fieldData: print_data, "script":"Solinf_gestione"}
         # data = { fieldData: print_data }
 
         # data = { fieldData: print_data, "script.prerequest":"test_pre", "script.prerequest.param":"0", "script":"test", "script.param":"1", "script.presort":"test_post", "script.presort.param":"2"}
