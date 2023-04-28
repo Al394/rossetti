@@ -18,8 +18,10 @@ class ImportLiyuKonica < ApplicationJob
               if line[6] != "100.0"
                 status = 'Annullato'
               end
+              odl = job_name.split(Customization.import_separator).first
               details = {
                 file_name: job_name,
+                odl: odl,
                 customer_machine_id: customer_machine.id,
                 customer_machine_name: customer_machine.name,
                 print_time: (convert_to_time(line.first) - convert_to_time(line.last.split.first)).to_i,

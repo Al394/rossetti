@@ -27,8 +27,10 @@ class ImportLiyuRicoh < ApplicationJob
               real_number = print_time.length - 7
               zeros = print_time[real_number..print_time.length]
               print_time = print_time.gsub("#{zeros}", '')
+              odl = job_name.split(Customization.import_separator).first
               details = {
                 file_name: job_name,
+                odl: odl,
                 customer_machine_id: customer_machine.id,
                 customer_machine_name: customer_machine.name,
                 start_at: DateTime.parse(row.xpath("UIJob/dateTime").text.strip),

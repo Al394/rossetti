@@ -30,8 +30,10 @@ class ImportRasterlinkV2 < ApplicationJob
               end
             end
             print_time = convert_to_time(end_time.max) - convert_to_time(start_time.min)
+            odl = job_name.split(Customization.import_separator).first
             details = {
               file_name: job_name,
+              odl: odl,
               customer_machine_id: customer_machine.id,
               customer_machine_name: customer_machine.name,
               copies: 1,

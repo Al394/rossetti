@@ -104,3 +104,7 @@ end
 if Customization.where(parameter: 'license_token').size == 0
   Customization.create!(parameter: 'license_token', value: ENV['SS_GEST_TOKEN'], notes: 'Token licenza')
 end
+
+if Customization.where(parameter: 'import_separator').size == 0
+  Customization.create!(parameter: 'import_separator', value: '#', notes: 'Inserire il separatore dei jobs')
+end

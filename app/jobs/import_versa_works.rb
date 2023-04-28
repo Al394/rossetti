@@ -18,8 +18,10 @@ class ImportVersaWorks < ApplicationJob
               end_at = row[4].to_time
               print_time = end_at - start_at
               start_at = row[3].to_time
+              odl = job_name.split(Customization.import_separator).first
               details = {
                 customer_machine_id: customer_machine.id,
+                odl: odl,
                 customer_machine_name: customer_machine.name,
                 start_at: start_at,
                 print_time: print_time,
