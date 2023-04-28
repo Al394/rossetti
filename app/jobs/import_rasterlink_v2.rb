@@ -33,6 +33,7 @@ class ImportRasterlinkV2 < ApplicationJob
             details = {
               file_name: job_name,
               customer_machine_id: customer_machine.id,
+              customer_machine_name: customer_machine.name,
               copies: 1,
               print_time: print_time,
               start_at: convert_to_time(start_time.min),

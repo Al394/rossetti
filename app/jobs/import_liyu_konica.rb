@@ -21,6 +21,7 @@ class ImportLiyuKonica < ApplicationJob
               details = {
                 file_name: job_name,
                 customer_machine_id: customer_machine.id,
+                customer_machine_name: customer_machine.name,
                 print_time: (convert_to_time(line.first) - convert_to_time(line.last.split.first)).to_i,
                 start_at: convert_to_time(line.last.split.first),
                 ends_at: convert_to_time(line.first),

@@ -20,6 +20,7 @@ class ImportVersaWorks < ApplicationJob
               start_at = row[3].to_time
               details = {
                 customer_machine_id: customer_machine.id,
+                customer_machine_name: customer_machine.name,
                 start_at: start_at,
                 print_time: print_time,
                 ends_at: start_at + print_time&.to_i&.seconds,

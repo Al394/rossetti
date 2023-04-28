@@ -5,7 +5,7 @@ class IndustryDatum < ApplicationRecord
 
   belongs_to :customer_machine, optional: true
 
-  after_create_commit :send_to_gest
+  # after_create_commit :send_to_gest
 
   attr_accessor :is_plc
 
@@ -42,6 +42,6 @@ class IndustryDatum < ApplicationRecord
   private
 
   def send_to_gest
-    SendToFilemaker.perform_later(self.id)
+    # SendToFilemaker.perform_later(self.id)
   end
 end

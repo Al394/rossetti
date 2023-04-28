@@ -6,6 +6,7 @@ require 'net/ssh'
 require 'net/sftp'
 require 'net/http'
 require 'tiny_tds'
+require 'uri'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)

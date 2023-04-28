@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_03_085749) do
+ActiveRecord::Schema.define(version: 2023_04_28_101712) do
 
   create_table "active_storage_attachments", charset: "utf8mb3", force: :cascade do |t|
     t.string "name", null: false
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2023_03_03_085749) do
     t.text "api_key"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "token"
   end
 
   create_table "customizations", charset: "utf8mb3", force: :cascade do |t|
@@ -82,6 +83,7 @@ ActiveRecord::Schema.define(version: 2023_03_03_085749) do
     t.datetime "sent_to_gest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "customer_machine_name"
     t.index ["customer_machine_id"], name: "index_industry_data_on_customer_machine_id"
   end
 

@@ -1,6 +1,4 @@
 class SendToFilemaker < ApplicationJob
-  require 'uri'
-  require 'net/http'
   queue_as :roberta_bolsi
   sidekiq_options retry: 0, backtrace: 10
 

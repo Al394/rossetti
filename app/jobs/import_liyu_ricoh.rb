@@ -30,6 +30,7 @@ class ImportLiyuRicoh < ApplicationJob
               details = {
                 file_name: job_name,
                 customer_machine_id: customer_machine.id,
+                customer_machine_name: customer_machine.name,
                 start_at: DateTime.parse(row.xpath("UIJob/dateTime").text.strip),
                 print_time: print_time.to_i,
                 ends_at: DateTime.parse(row.xpath("UIJob/dateTime").text.strip) + print_time&.to_i&.seconds,
