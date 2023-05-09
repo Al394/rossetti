@@ -20,7 +20,7 @@ class ImportVersaWorks < ApplicationJob
               start_at = row[3].to_time
               odl = job_name.split(Customization.import_separator).first
               details = {
-                job_name: job_name,
+                file_name: job_name,
                 customer_machine_id: customer_machine.id,
                 odl: odl,
                 customer_machine_name: customer_machine.name,
