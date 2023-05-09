@@ -36,7 +36,7 @@ class ImportVersaWorks < ApplicationJob
               printer = IndustryDatum.find_by(details)
               if printer.nil?
                 printer = IndustryDatum.create!(details)
-                Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricati dati di stampa per riga ordine #{printer.resource}")
+                Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricati dati di stampa per riga ordine #{printer.odl}")
               end
             end
           rescue Exception => e
