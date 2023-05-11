@@ -12,38 +12,36 @@ class ImportVersaWorks < ApplicationJob
 
         db.execute(query) do |row|
           begin
-            IndustryDatum.transaction do
-              job_name = row[1]
-              start_at = row[3].to_time
-              end_at = row[4].to_time
-              print_time = end_at - start_at
-              start_at = row[3].to_time
-              odl = job_name.split(Customization.import_separator).first
-              details = {
-                file_name: job_name,
-                customer_machine_id: customer_machine.id,
-                odl: odl,
-                customer_machine_name: customer_machine.name,
-                start_at: start_at,
-                print_time: print_time,
-                ends_at: end_at,
-                ink: row[2],
-                job_id: row[0],
-                copies: row[5],
-                material: nil,
-                extra_data: "Status: #{row[6]}"
-              }
-              printer = IndustryDatum.find_by(details)
-              if printer.nil?
-                printer = IndustryDatum.create!(details)
-                Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricati dati di stampa per riga ordine #{printer.odl}")
-              end
+            job_name = row[1]
+            start_at = row[3].to_time
+            end_at = row[4].to_time
+            print_time = end_at - start_at
+            start_at = row[3].to_time
+            odl = job_name.split(Customization.import_separator).first
+            details = {
+              file_name: job_name,
+              customer_machine_id: customer_machine.id,
+              odl: odl,
+              customer_machine_name: customer_machine.name,
+              start_at: start_at,
+              print_time: print_time,
+              ends_at: end_at,
+              ink: row[2],
+              job_id: row[0],
+              copies: row[5],
+              material: nil,
+              extra_data: "Status: #{row[6]}"
+            }
+            printer = IndustryDatum.find_by(details)
+            if printer.nil?
+              printer = IndustryDatum.create!(details)
+              Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricati dati di stampa per riga ordine #{printer.odl}")
             end
-          rescue Exception => e
-            log_details = {kind: 'error', action: "Import #{customer_machine}", description: e.message}
-            if Log.where(log_details).where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).size == 0
-              Log.create!(log_details)
-            end
+          end
+        rescue Exception => e
+          log_details = {kind: 'error', action: "Import #{customer_machine}", description: e.message}
+          if Log.where(log_details).where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).size == 0
+            Log.create!(log_details)
           end
         end
       end
