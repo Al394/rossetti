@@ -45,7 +45,7 @@ class ImportRasterlinkV2 < ApplicationJob
                 Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricato rasterlink per job #{job_name}".truncate(250))
               end
             end
-            File.rename(csv, "#{csv}.imported")
+            # File.rename(csv, "#{csv}.imported") if File.exist?(csv)
           end
         rescue Exception => e
           log_details = {kind: 'error', action: "Import #{customer_machine}", description: e.message.truncate(250)}
