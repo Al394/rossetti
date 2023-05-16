@@ -26,7 +26,7 @@ class ImportRasterlinkV2 < ApplicationJob
                   end
                 end
               end
-              duration = end_time.max - start_time.min
+              duration = end_time - start_time
               odl = job_name.split(Customization.import_separator).first
               details = {
                 file_name: job_name,
