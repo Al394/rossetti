@@ -10,16 +10,14 @@ class ImportRasterlinkV2 < ApplicationJob
         begin
           Dir["#{customer_machine.path}/*.csv"].each do |csv|
             next if csv.include?('_NG_') || csv.include?('_cut.') || File.size(csv) == 0
-            start_time = []
-            end_time = []
-            inks = {}
             # trovo il job_name ciclando sul nome del csv e rimuovendo data e ora che il rasterlink mette al primo posto nel nome: es: 20211217_145057_59#J_test.pdf
-            job_name = File.basename(csv)
             CSV.foreach(csv, headers: true, col_sep: ",", skip_blanks: true) do |row|
-              start_time << row[5]
-              end_time << row[6]
-              if row[2].present?
-                row[2].split('cc ').each do |ink|
+              inks = {}
+              job_name = row['KEY_FILENAME']
+              start_time = convert_to_time(row['KEY_PRINT_S_TIME'])
+              end_time = convert_to_time(row['KEY_PRINT_E_TIME'])
+              if row['KEY_INKUSE'].present?
+                row['KEY_INKUSE'].split('cc ').each do |ink|
                   name, value = ink.split(':')
                   if inks[name].present?
                     inks[name] += value.to_f
@@ -28,24 +26,24 @@ class ImportRasterlinkV2 < ApplicationJob
                   end
                 end
               end
-            end
-            print_time = convert_to_time(end_time.max) - convert_to_time(start_time.min)
-            odl = job_name.split(Customization.import_separator).first
-            details = {
-              file_name: job_name,
-              odl: odl,
-              customer_machine_id: customer_machine.id,
-              customer_machine_name: customer_machine.name,
-              copies: 1,
-              print_time: print_time,
-              start_at: convert_to_time(start_time.min),
-              ends_at: convert_to_time(start_time.min) + print_time&.seconds,
-              ink: inks.map {|k, v| "#{k}:#{v}"}.join(';')
-            }
-            printer = IndustryDatum.find_by(details)
-            if printer.nil?
-              printer = IndustryDatum.create!(details)
-              Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricato rasterlink per job #{job_name}".truncate(250))
+              duration = end_time.max - start_time.min
+              odl = job_name.split(Customization.import_separator).first
+              details = {
+                file_name: job_name,
+                odl: odl,
+                customer_machine_id: customer_machine.id,
+                customer_machine_name: customer_machine.name,
+                copies: 1,
+                duration: duration,
+                start_at: start_time,
+                ends_at: end_time,
+                ink: inks.map {|k, v| "#{k}:#{v}"}.join(';')
+              }
+              printer = IndustryDatum.find_by(details)
+              if printer.nil?
+                printer = IndustryDatum.create!(details)
+                Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricato rasterlink per job #{job_name}".truncate(250))
+              end
             end
             File.rename(csv, "#{csv}.imported")
           end
