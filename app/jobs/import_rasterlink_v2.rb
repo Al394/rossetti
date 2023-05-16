@@ -50,7 +50,7 @@ class ImportRasterlinkV2 < ApplicationJob
             File.rename(csv, "#{csv}.imported")
           end
         rescue Exception => e
-          log_details = {kind: 'error', action: "Import #{customer_machine}", description: e.message}
+          log_details = {kind: 'error', action: "Import #{customer_machine}", description: e.message.truncate(250)}
           if Log.where(log_details).where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).size == 0
             Log.create!(log_details)
           end
