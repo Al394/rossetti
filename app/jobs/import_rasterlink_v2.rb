@@ -43,9 +43,9 @@ class ImportRasterlinkV2 < ApplicationJob
               if printer.nil?
                 printer = IndustryDatum.create!(details)
                 Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricato rasterlink per job #{job_name}".truncate(250))
-                File.rename(csv, "#{csv}.imported")
               end
             end
+            File.rename(csv, "#{csv}.imported")
           end
         rescue Exception => e
           log_details = {kind: 'error', action: "Import #{customer_machine}", description: e.message.truncate(250)}
