@@ -24,7 +24,7 @@ class IndustryDataController < ApplicationController
   def resend
     begin
       @industry_datum.customer_machine.update!(token: nil)
-      SendToFilemaker.perform_later(@industry_datum.id)
+      # SendToFilemaker.perform_later(@industry_datum.id)
       flash[:notice] = I18n::t('obj.updated', obj: IndustryDatum.model_name.human.downcase)
     rescue Exception => e
       flash[:danger] = I18n::t('obj.not_uploaded', obj: IndustryDatum.model_name.human.downcase, message: e.message)
@@ -36,10 +36,10 @@ class IndustryDataController < ApplicationController
   def sent_all
     begin
       if params[:industry_datum_id].present?
-        SendToFilemaker.perform_later(params[:industry_datum_id])
+        # SendToFilemaker.perform_later(params[:industry_datum_id])
       else
         IndustryDatum.unsent.each do |industry_datum|
-          SendToFilemaker.perform_later(industry_datum.id)
+          # SendToFilemaker.perform_later(industry_datum.id)
         end
       end
       sleep(0.4)

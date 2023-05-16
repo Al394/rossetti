@@ -1,5 +1,5 @@
 class SendToFilemaker < ApplicationJob
-  queue_as :roberta_bolsi
+  queue_as :rossetti
   sidekiq_options retry: 0, backtrace: 10
 
   def perform(id)
