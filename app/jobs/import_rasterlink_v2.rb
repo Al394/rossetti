@@ -14,7 +14,7 @@ class ImportRasterlinkV2 < ApplicationJob
             end_time = []
             inks = {}
             # trovo il job_name ciclando sul nome del csv e rimuovendo data e ora che il rasterlink mette al primo posto nel nome: es: 20211217_145057_59#J_test.pdf
-            job_name = File.basename(csv).split('_').drop(2).join('_')
+            job_name = File.basename(csv)
             CSV.foreach(csv, headers: true, col_sep: ",", skip_blanks: true) do |row|
               start_time << row[5]
               end_time << row[6]
