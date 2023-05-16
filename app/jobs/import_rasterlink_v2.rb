@@ -54,7 +54,7 @@ class ImportRasterlinkV2 < ApplicationJob
           if Log.where(log_details).where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).size == 0
             Log.create!(log_details)
           end
-          File.rename(xml_path, "#{xml_path}.error")
+          File.rename(csv, "#{csv}.error")
         end
       end
     end
