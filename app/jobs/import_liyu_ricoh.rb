@@ -8,11 +8,11 @@ class ImportLiyuRicoh < ApplicationJob
         files = Dir.glob("#{customer_machine.path}/#{Date.today.strftime("%Y")}/#{Date.today.strftime("%Y%m")}/#{Date.today.strftime("%Y%m%d")}/*.xml")
         begin
           raise "Nessun file trovato" if files.size == 0
+          last_printer = nil
           files.sort.each do |file|
-            if customer_machine.industry_data.size > 0
-              last_printer = customer_machine.industry_data.last
-              next if last_printer.present? && last_printer.start_at.strftime("%Y%m%d%H%M%S").to_i >= File.basename(file).split(".xml").first.to_i
-            end
+            last_printer = customer_machine.industry_data.last
+            next if last_printer.present? && last_printer.start_at.strftime("%Y%m%d%H%M%S").to_i >= File.basename(file).split(".xml").first.to_i
+            sleep rand()
             doc = Nokogiri::XML(File.read(file))
             doc.xpath("//PrintRecordList/PrintRecord").each do |row|
               next if last_printer.present? && last_printer.start_at >= DateTime.parse(row.xpath("UIJob/dateTime").text.strip).in_time_zone
@@ -42,6 +42,7 @@ class ImportLiyuRicoh < ApplicationJob
               printer = IndustryDatum.find_by(details)
               if printer.nil?
                 printer = IndustryDatum.create!(details)
+                last_printer = printer
                 Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricati dati di taglio per #{job_name}")
               end
             rescue Exception => e
