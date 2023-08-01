@@ -45,14 +45,14 @@ class ImportRasterlinkV2 < ApplicationJob
                 Log.create!(kind: 'success', action: "Import #{customer_machine}", description: "Caricato rasterlink per job #{job_name}".truncate(250))
               end
             end
-            # File.rename(csv, "#{csv}.imported") if File.exist?(csv)
+            File.rename(csv, "#{csv}.imported") if File.exist?(csv)
           end
         rescue Exception => e
           log_details = {kind: 'error', action: "Import #{customer_machine}", description: e.message.truncate(250)}
           if Log.where(log_details).where(created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).size == 0
             Log.create!(log_details)
           end
-          # File.rename(csv, "#{csv}.error")
+          File.rename(csv, "#{csv}.error")
         end
       end
     end

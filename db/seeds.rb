@@ -109,12 +109,4 @@ if Customization.where(parameter: 'import_separator').size == 0
   Customization.create!(parameter: 'import_separator', value: '#', notes: 'Inserire il separatore dei jobs')
 end
 
-sg2 = CustomerMachine.find_by(serial_number: 'SG2-300')
-lef2 = CustomerMachine.find_by(serial_number: 'LEF2-300 DX')
-
-sg2.update!(serial_number: 'KEE0390')
-lef2.update!(serial_number: 'ZEB0133')
-
-CustomerMachine.create!(name: 'LEF-20', serial_number: 'ZCI2899', path: '/srv/vhosts/soltechws/share/LOG_VERSA', import_job: 'versa_works')
-
-CustomerMachine.mount_all
+# CustomerMachine.mount_all
